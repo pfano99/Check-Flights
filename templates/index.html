@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<h1>Flights</h1>
+
+<div class="container">
+    <form class="row" action="" method="POST">
+        {{ form.hidden_tag() }}
+        <div class="col">
+            {{ form.departure.label(class="form-label") }}
+            {{ form.departure(class="form-select-lg") }}
+        </div>
+        <div class="col">
+            {{ form.arrival.label }}
+            {{ form.arrival(class="form-select-lg") }}
+        </div>
+        <div class="col">
+            {{ form.submit(class='btn btn-outline-dark btn-lg') }}
+        </div>
+
+    </form>
+
+    <br>
+    {% if data %}
+    <hr>
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">date</th>
+            <th scope="col">status</th>
+            <th scope="col">departure time</th>
+            <th scope="col">arrival time</th>
+            <th scope="col">Flight name</th>
+            <th scope="col">Flight number</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for d in data %}
+          <tr>
+            <th scope="row"> {{ d.flight_date }} </th>
+            <td> {{ d.flight_status }} </td>
+            <!-- [11:16] slicing the datetime string to get only the time part, !!! strftime not working -->
+            <td> {{ d.dep_time[11:16] }} </td> 
+            <td> {{ d.arr_time[11:16] }} </td>
+            <td> {{ d.airline }} </td>
+            <td> {{ d.flight_no }} </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+</div>
+
+{% endblock body %}
+
+
+
+
